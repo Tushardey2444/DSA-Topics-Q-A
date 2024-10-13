@@ -1,0 +1,39 @@
+//Approach -> 1
+
+class Solution {
+    public int findMin(int[] nums) {
+        int si=0,ei=nums.length-1;
+        int ans=Integer.MAX_VALUE;
+        while(si<=ei){
+            int mid=si+(ei-si)/2;
+            if(nums[si]<=nums[mid]){ //left part
+                ans=Math.min(ans,nums[si]);
+                si=mid+1;
+            }else{ //right part
+                ans=Math.min(ans,nums[mid]);
+                ei=mid-1;
+            }
+        }
+        return ans;
+
+    }
+}
+
+//Approach -> 2
+
+class Solution {
+    public int findMin(int[] nums) {
+        int si=0,ei=nums.length-1;
+
+        while(si<ei){
+            int mid=si+(ei-si)/2;
+            if(nums[mid]>nums[ei]){ //right part
+                si=mid+1;
+            }else{ //left 
+                ei=mid;
+            }
+        }
+        return nums[si];
+
+    }
+}
