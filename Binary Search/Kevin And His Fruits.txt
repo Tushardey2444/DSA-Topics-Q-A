@@ -13,7 +13,6 @@ public class Solution
 		//ith position = a basket
 		//0->10, 1->40, 2->30, 3->20
 		//Marker->20 //0->0 //1->20 //2->10 //3->0
-		//Atleast want to save fruits as second input in test case. 
 
 		int si=0,ei=arr.get(0),p_ans=0;
 		for(int fruits:arr){
@@ -32,14 +31,14 @@ public class Solution
 		}
 		return p_ans;
 	}
-	public static boolean isPossible(ArrayList<Integer> arr,int m,int marker){
-		int savedFruits=0;
+	public static boolean isPossible(ArrayList<Integer> arr,int m,int markerToSave){
+		int FruitsEaten=0;
 		for(int fruits:arr){
-			if(fruits>marker){
-				savedFruits+=(fruits-marker);
+			if(fruits>markerToSave){
+				FruitsEaten+=(fruits-markerToSave);
 			}
 		}
-		if(savedFruits>=m){
+		if(FruitsEaten>=m){
 			return true;
 		}else{
 			return false;
