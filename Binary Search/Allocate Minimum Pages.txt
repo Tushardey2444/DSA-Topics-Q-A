@@ -1,0 +1,42 @@
+class Solution {
+    // Function to find minimum number of pages.
+    public static boolean isPossible(int[] arr,int m,long minPages){
+        long totalStudents=1;
+        long totalPages=0;
+        for(int i=0;i<arr.length;i++){
+            totalPages+=arr[i];
+            if(totalPages>minPages){
+                totalPages=arr[i];
+                totalStudents++;
+            }
+        }
+        if(totalStudents>m){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public static long findPages(int n, int[] arr, int m) {
+        if(m>arr.length){
+            return -1;
+        }
+        long si=1,ei=0;
+        for(int i=0;i<n;i++){
+            si=Math.max(si,arr[i]);
+            ei+=arr[i];
+        }
+        long p_ans=-1;
+        while(si<=ei){
+            long mid=si+(ei-si)/2;
+            
+            if(isPossible(arr,m,mid)){
+                p_ans=mid;
+                ei=mid-1;
+            }else{
+                si=mid+1;
+            }
+        }
+        return p_ans;
+        
+    }
+};

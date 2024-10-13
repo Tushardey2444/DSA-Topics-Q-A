@@ -1,0 +1,39 @@
+class Solution {
+    public static boolean isPossible(int[] stalls,int k,int minDis){
+        int cows=1;
+        int prevPos=stalls[0];
+        for(int i=1;i<stalls.length;i++){
+            if((stalls[i]-prevPos)>=minDis){
+                cows++;
+                prevPos=stalls[i];
+            }
+        }
+        if(cows>=k){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public static int solve(int n, int k, int[] stalls) {
+        // k denotes aggresive cows
+        Arrays.sort(stalls);
+        int ei=stalls[stalls.length-1]-stalls[0];
+        int si=ei;
+        int p_ans=si;
+        for(int i=0;i<n-1;i++){
+            si=Math.min(si,stalls[i+1]-stalls[i]);
+        }
+        
+        while(si<=ei){
+            int mid=si+(ei-si)/2;
+            
+            if(isPossible(stalls,k,mid)){
+                p_ans=mid;
+                si=mid+1;
+            }else{
+                ei=mid-1;
+            }
+        }
+        return p_ans;
+    }
+}
