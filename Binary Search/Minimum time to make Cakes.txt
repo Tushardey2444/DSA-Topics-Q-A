@@ -1,0 +1,54 @@
+class Solution {
+	public boolean isPossible(int[] A, int n, int m, int k, int currentDay){
+		int cakeMake=0;
+		int flavourTake=0;
+		for(int i=0;i<n;i++){
+			if(A[i]<=currentDay){
+				flavourTake++;
+				if(flavourTake==k){
+					cakeMake++;
+					flavourTake=0;
+				}
+			}else{
+				flavourTake=0;
+			}
+		}
+
+		if(cakeMake<m){
+			return false;
+		}else{
+			return true;
+		}
+	}
+    public int minDays(int[] A,int n, int m, int k) {
+		//Write code here
+        // M -> the no. of cakes to be made
+        // ith -> flavour
+        // A[i] -> days when the ith flavour is available
+        // to make a cake you must select k consecutive flavours
+        // we need to find out the min no. of days the cake can be made.
+        // if not possible return -1;
+
+        if((m*k)>A.length){
+            return -1;
+        }
+        int p_ans=0;
+
+		int si=Integer.MAX_VALUE,ei=0;
+		for(int i=0;i<A.length;i++){
+			si=Math.min(si,A[i]);
+			ei=Math.max(ei,A[i]);
+		}
+
+		while(si<=ei){
+			int mid=si+(ei-si)/2;
+			if(isPossible(A,n,m,k,mid)){
+				p_ans=mid;
+				ei=mid-1;
+			}else{
+				si=mid+1;
+			}
+		}
+		return p_ans;
+	}
+}

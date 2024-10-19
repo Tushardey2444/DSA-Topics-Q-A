@@ -1,0 +1,43 @@
+class Solution {
+    public boolean isPossible(int[] weights, int givenDays, int shipCapacity){
+        int currentCapacity=0;
+        int currentDays=1;
+        for(int i=0;i<weights.length;i++){
+            currentCapacity+=weights[i];
+            if(currentCapacity>shipCapacity){
+                currentDays++;
+                currentCapacity=weights[i];
+            }
+        }
+        if(currentDays>givenDays){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public int shipWithinDays(int[] weights, int days) {
+        //packages must be shipped within days from one to another port
+        // ith -> package
+        // weight[i] -> weight of ith package
+        // weights must be loaded in the given order
+        // not load more weight when capacity is full
+        // find least weight of the ship that results all packages to be shipped in given days
+
+        int si=0,ei=0;
+        for(int weight:weights){
+            si=Math.max(si,weight);
+            ei+=weight;
+        }
+        int p_ans=si;
+        while(si<=ei){
+            int mid=si+(ei-si)/2;
+            if(isPossible(weights,days,mid)){
+                p_ans=mid;
+                ei=mid-1;
+            }else{
+                si=mid+1;
+            }
+        }
+        return p_ans;
+    }
+}

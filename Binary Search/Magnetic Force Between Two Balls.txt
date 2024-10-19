@@ -1,0 +1,33 @@
+class Solution {
+    public boolean isPossible(int[] position, int m, int minDis){
+        int totalBalls=1;
+        int prevPos=position[0];
+        for(int i=1;i<position.length;i++){
+            if((position[i]-prevPos)>=minDis){
+                totalBalls++;
+                prevPos=position[i];
+            }
+        }
+        return totalBalls>=m;
+    }
+    public int maxDistance(int[] position, int m) {
+        Arrays.sort(position);
+        int si=0,ei=position[position.length-1]-position[0];
+
+        for(int i=0;i<position.length-1;i++){
+            si=Math.min(si,position[i+1]-position[i]);
+        }
+        int p_ans=si;
+
+        while(si<=ei){
+            int mid=si+(ei-si)/2;
+            if(isPossible(position,m,mid)){
+                p_ans=mid;
+                si=mid+1;
+            }else{
+                ei=mid-1;
+            }
+        }
+        return p_ans;
+    }
+}
