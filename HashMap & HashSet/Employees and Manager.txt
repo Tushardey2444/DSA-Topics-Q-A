@@ -1,0 +1,116 @@
+import java.io.*;
+import java.util.*;
+
+class Solution {
+public int recur(TreeMap<String,Integer> result,String ceo,HashMap<String,ArrayList<String>> map){
+    int count=0;
+    for(String emp:map.getOrDefault(ceo,new ArrayList<>())){
+			count+=recur(result,emp,map);
+		}
+		result.put(ceo,count);
+		return count+1;
+}
+    public void EmpUnderManager(Map<String, String> emp)
+	{
+		HashMap<String,ArrayList<String>> map=new HashMap<>();
+        String ceo="";
+        for(String employee:emp.keySet()){
+            String mag=emp.get(employee);
+            if(employee.equals(mag)==true){
+                ceo=mag;
+                continue;
+            }
+            ArrayList<String> ans=map.getOrDefault(mag,new ArrayList<>());
+            ans.add(employee);
+            map.put(mag,ans);
+        }
+        TreeMap<String ,Integer> result=new TreeMap<>();
+        recur(result,ceo,map);
+        for(String key:result.keySet()){
+            System.out.println(key+" "+result.get(key));
+        }
+	}
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n;
+        n = sc.nextInt();
+        Map<String,String> emp = new HashMap<String, String>();
+        for(int i=0;i<n;++i){
+			emp.put(sc.next(),sc.next());
+        }
+        Solution Obj = new Solution();
+        Obj.EmpUnderManager(emp); 
+    }
+}
+
+
+
+
+import java.io.*;
+import java.util.*;
+class Pair{
+    String manage;
+    int noOfEmployees;
+    public Pair(String manage,int noOfEmployees){
+        this.manage=manage;
+        this.noOfEmployees=noOfEmployees;
+    }
+}
+class Solution {
+    public int recur(String ceo, HashMap<String, ArrayList<String>> report, ArrayList<Pair> result){
+        if(!report.containsKey(ceo)){
+            result.add(new Pair(ceo,0));
+            return 1;
+        }
+        int count=0;
+        for(String emp:report.get(ceo)){
+            count+=recur(emp,report,result);
+        }
+        result.add(new Pair(ceo,count));
+        return count+1;
+    }
+
+    public void EmpUnderManager(Map<String, String> emp)
+	{
+		String ceo="";
+        HashMap<String, ArrayList<String>> report=new HashMap<>();
+
+        for(String employee:emp.keySet()){
+            String manager=emp.get(employee);
+
+            if(employee.equals(manager)){
+                ceo=employee;
+                continue;
+            }
+            ArrayList<String> employ=report.getOrDefault(manager,new ArrayList<>());
+            employ.add(employee);
+            report.put(manager,employ);
+        }
+        ArrayList<Pair> result=new ArrayList<>();
+        recur(ceo, report, result);
+        result.sort((a, b) -> {
+            return Integer.compare(a.manage.compareTo(b.manage), 0);
+        });
+        for(Pair p:result){
+            System.out.println(p.manage+" "+p.noOfEmployees);
+        }
+
+	}
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n;
+        n = sc.nextInt();
+        Map<String,String> emp = new HashMap<String, String>();
+        for(int i=0;i<n;++i){
+			emp.put(sc.next(),sc.next());
+        }
+        Solution Obj = new Solution();
+        Obj.EmpUnderManager(emp); 
+    }
+}

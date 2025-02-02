@@ -1,0 +1,14 @@
+Acciojob:
+******************************************** Stack **********************************************
+1. Extra Brackets
+
+
+
+Leetcode:
+******************************************** Stack **********************************************
+56. Merge Intervals (Acciojob: Merge Intervals)
+155. Min Stack (Acciojob: Minimum Stack)
+1190. Reverse Substrings Between Each Pair of Parentheses (Acciojob: Reverse Substrings Between Each Pair of Parentheses)
+907. Sum of Subarray Minimums (Acciojob: Sum of Subarray Minimums)
+456. 132 Pattern (Acciojob: 132 Pattern)
+42. Trapping Rain Water (Acciojob: Trapping Rainwater Problem)
